@@ -2,9 +2,11 @@
 
 #Global vars
 
-windowTitle="Docker-Container-Exec"
-windowWidth=450
-windowHeight=250
+scripPath=$(dirname $(readlink -f "$0"));
+windowTitle="Docker-Container-Exec";
+windowWidth=450;
+windowHeight=250;
+commandListPath="${scripPath}/commandList.json"
 
 #Get the container - image list and creates the string with the next structure : image1 container1 image2 container2 ...
 containerList='';
@@ -23,7 +25,7 @@ then
 fi
 
 # Select the command to execute
-commandList=$(cat commandList.json | jq 'keys' | head -n-1| tail -n+2 | tr -d '"' | tr -d ',');
+commandList=$(cat $commandListPath  | jq 'keys' | head -n-1| tail -n+2 | tr -d '"' | tr -d ',');
 
 command=$(zenity --list   --title="${windowTitle}"  --column= $commandList);
 
@@ -34,7 +36,7 @@ then
 fi
 
 # Get the command template
-command=$(cat commandList.json | jq ".$command");
+command=$(cat $commandListPath | jq ".$command");
 
 # Replace the command vars
 command=${command//\$containerId/$container};
@@ -43,5 +45,6 @@ command=${command//\$containerId/$container};
 command="${command:1:${#command}-2}";
 
 #Exec the command
-echo $command;
+clear;
+echo -e "\n\e[34m${command}\n\e[0m"
 $command;
