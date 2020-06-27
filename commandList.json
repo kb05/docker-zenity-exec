@@ -1,7 +1,7 @@
 {
 	"bash" 		:	"sudo docker exec -ti $containerId bash",
-    "stop" 		:	"sudo docker stop $containerId",
-    "pause" 	: 	"sudo docker pause $containerId",
+   	"stop" 		:	"sudo docker stop $containerId",
+    	"pause" 	: 	"sudo docker pause $containerId",
    	"unpause" 	:	"sudo docker unpause $containerId",
    	"logs"   	:	"sudo docker logs $containerId"
 }
